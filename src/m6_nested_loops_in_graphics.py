@@ -3,16 +3,16 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Wenxing Li.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
-    run_test_draw_wall_on_right()
+    #run_test_draw_L()
+    #run_test_draw_wall_on_right()
 
 
 def run_test_draw_L():
@@ -79,8 +79,34 @@ def draw_L(window, circle, r, c):
       :type c: int
     and m and n are small, positive integers.
     """
+
+    x = circle.center.x
+    y = circle.center.y
+
+    for j in range(r):
+        for k in range(3):
+            Circle = rg.Circle(rg.Point(x,y),circle.radius)
+            Circle.fill_color = circle.fill_color
+            Circle.center.x += 2*k*circle.radius
+            Circle.attach_to(window)
+            window.render(0.1)
+        y += 2*circle.radius
+
+    for j in range(3):
+        for k in range(c+3):
+            Circle = rg.Circle(rg.Point(x,y),circle.radius)
+            Circle.fill_color = circle.fill_color
+            Circle.center.x += 2*k*circle.radius
+            Circle.attach_to(window)
+            window.render(0.1)
+        y += 2 * circle.radius
+
+
+
+
+
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
@@ -120,8 +146,25 @@ def draw_wall_on_right(rectangle, n, window):
       :type window: rg.RoseWindow
     and n is a small, positive integer.
     """
+    corner1 = rectangle.get_upper_left_corner()
+    corner2 = rectangle.get_lower_right_corner()
+
+
+    for j in range(n):
+        for k in range(j+1):
+            Rectangle = rg.Rectangle(corner1,corner2)
+            Rectangle.attach_to(window)
+            window.render(0.1)
+            corner1.x = corner1.x-rectangle.get_width()
+            corner2.x = corner2.x-rectangle.get_width()
+        corner2.y += rectangle.get_height()
+        corner1.y += rectangle.get_height()
+        corner1.x = rectangle.get_upper_left_corner().x
+        corner2.x = rectangle.get_lower_right_corner().x
+
+
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
